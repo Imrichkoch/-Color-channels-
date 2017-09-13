@@ -2,8 +2,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,8 +9,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.border.TitledBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 public class ChannelsOfColor extends JFrame {
 	private int r = 0;
@@ -45,62 +41,19 @@ public class ChannelsOfColor extends JFrame {
 		blueSlider = new JSlider(0, 255, 1);
 		blueSlider.setBorder(new TitledBorder("BLUE"));
 		thePanel.add(blueSlider, BorderLayout.SOUTH);
-		redSlider.addChangeListener(new ChangeListener() {
 
-			@Override
-			public void stateChanged(ChangeEvent e) {
+		redSlider.addChangeListener(e -> r = redSlider.getValue());
+		greenSlider.addChangeListener(e -> g = greenSlider.getValue());
+		blueSlider.addChangeListener(e -> b = blueSlider.getValue());
 
-				r = redSlider.getValue();
-
-			}
-
-		});
-
-		greenSlider.addChangeListener(new ChangeListener() {
-
-			@Override
-			public void stateChanged(ChangeEvent e) {
-
-				g = greenSlider.getValue();
-
-			}
-
-		});
-
-		blueSlider.addChangeListener(new ChangeListener() {
-
-			@Override
-			public void stateChanged(ChangeEvent e) {
-
-				b = blueSlider.getValue();
-
-			}
-
-		});
+		JButton cancel = new JButton("Cancel");
+		cancel.addActionListener(e -> frame.dispose());
 
 		JPanel buttons_panel = new JPanel(new FlowLayout());
 		JButton ok = new JButton("OK");
-		ok.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				f.setRed(r);
-				f.setGreen(g);
-				f.setBlue(b);
-
-				f.getContentPane().setBackground(new Color(r, g, b));
-				frame.dispose();
-
-			}
-		});
-
-		JButton cancel = new JButton("Cancel");
-		cancel.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-			}
+		ok.addActionListener(e -> {
+			f.getContentPane().setBackground(new Color(r, g, b));
+			frame.dispose();
 		});
 
 		buttons_panel.add(ok);

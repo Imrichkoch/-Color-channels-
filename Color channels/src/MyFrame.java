@@ -1,9 +1,5 @@
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -48,41 +44,27 @@ public class MyFrame extends JFrame {
 	public MyFrame() {
 
 		Color color = new Color(red, green, blue);
-		JFrame frame = new JFrame("Colors");
-		frame.getContentPane().setBackground(color);
-		frame.setSize(WIDTH, HEIGHT);
-		System.out.println("red, green, blue " + red + green + blue);
+
+		getContentPane().setBackground(color);
+		setSize(WIDTH, HEIGHT);
+
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menu = new JMenu("Menu");
+
 		JMenuItem colorChannels = new JMenuItem("Color channels");
 		menu.add(colorChannels);
-		colorChannels.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new ChannelsOfColor(MyFrame.this);
+		colorChannels.addActionListener(e -> new ChannelsOfColor(MyFrame.this));
 
-			}
-		});
 		menu.addSeparator();
+
 		JMenuItem exit = new JMenuItem("Exit");
 		menu.add(exit);
+		exit.addActionListener(e -> System.exit(0));
 
-		exit.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
 		menuBar.add(menu);
-		frame.setJMenuBar(menuBar);
+		setJMenuBar(menuBar);
 
-		frame.setVisible(true);
+		setVisible(true);
 
-		// vycentruje mi okno
-		Toolkit tk = Toolkit.getDefaultToolkit();
-		Dimension dim = tk.getScreenSize();
-		int xPos = (dim.width / 2) - (frame.getWidth() / 2);
-		int yPos = (dim.height / 2) - (frame.getHeight() / 2);
-		frame.setLocation(xPos, yPos);
 	}
 }
